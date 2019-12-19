@@ -4,8 +4,9 @@ import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
 
 fun main(args: Array<String>) {
-    dispatcher()
     //blokingExample()
+    //exampleSuspend()
+    dispatcher()
 }
 
 fun longTaskWithMessage(message: String){
