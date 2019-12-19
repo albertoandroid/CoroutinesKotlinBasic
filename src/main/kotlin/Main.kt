@@ -7,7 +7,8 @@ fun main(args: Array<String>) {
     //launch()
     //exampleJob()
     //Thread.sleep(5000)
-    asyncAwait()
+    //asyncAwait()
+    asyncAwaitDeferred()
 }
 
 fun longTaskWithMessage(message: String){
@@ -91,6 +92,16 @@ fun asyncAwait() = runBlocking {
     val numero2: Int = async { calculateHard() }.await()
     println(System.currentTimeMillis().toString())
     val resultado = numero1 + numero2
+    println(resultado.toString())
+}
+
+fun asyncAwaitDeferred() = runBlocking {
+    println(System.currentTimeMillis().toString())
+    val numero1: Deferred<Int> = async { calculateHard() }
+    println(System.currentTimeMillis().toString())
+    val numero2: Deferred<Int> = async { calculateHard() }
+    println(System.currentTimeMillis().toString())
+    val resultado: Int = numero1.await() + numero2.await()
     println(resultado.toString())
 }
 
