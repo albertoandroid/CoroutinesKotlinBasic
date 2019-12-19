@@ -2,9 +2,10 @@ import kotlinx.coroutines.*
 
 fun main(args: Array<String>) {
     //blokingExample()
-    //exampleSuspend()
+    exampleSuspend()
     //dispatcher()
     launch()
+    Thread.sleep(10000)
 }
 
 fun longTaskWithMessage(message: String){
