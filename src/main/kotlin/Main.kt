@@ -1,12 +1,10 @@
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.newSingleThreadContext
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 
 fun main(args: Array<String>) {
     //blokingExample()
     //exampleSuspend()
-    dispatcher()
+    //dispatcher()
+    launch()
 }
 
 fun longTaskWithMessage(message: String){
@@ -59,6 +57,14 @@ fun dispatcher(){
     //runBlocking(Dispatchers.Main) {
     //    println("Hilo en el que se ejecuta 6: ${Thread.currentThread().name}")
     //}
+}
+
+fun launch(){
+    println("Tarea1 " + Thread.currentThread().name)
+    GlobalScope.launch {
+        delayCoroutine("Tarea2 :")
+    }
+    println("Tarea3 " + Thread.currentThread().name)
 }
 
 
