@@ -1,4 +1,5 @@
 import kotlinx.coroutines.*
+import kotlin.system.measureTimeMillis
 
 fun main(args: Array<String>) {
     //blokingExample()
@@ -8,7 +9,9 @@ fun main(args: Array<String>) {
     //exampleJob()
     //Thread.sleep(5000)
     //asyncAwait()
-    asyncAwaitDeferred()
+    //asyncAwaitDeferred()
+    println(measureTimeMillis { asyncAwait() }.toString())
+    println(measureTimeMillis { asyncAwaitDeferred() }.toString())
 }
 
 fun longTaskWithMessage(message: String){
@@ -86,21 +89,21 @@ suspend fun calculateHard(): Int{
 }
 
 fun asyncAwait() = runBlocking {
-    println(System.currentTimeMillis().toString())
+    //println(System.currentTimeMillis().toString())
     val numero1: Int = async { calculateHard() }.await()
-    println(System.currentTimeMillis().toString())
+    //println(System.currentTimeMillis().toString())
     val numero2: Int = async { calculateHard() }.await()
-    println(System.currentTimeMillis().toString())
+    //println(System.currentTimeMillis().toString())
     val resultado = numero1 + numero2
     println(resultado.toString())
 }
 
 fun asyncAwaitDeferred() = runBlocking {
-    println(System.currentTimeMillis().toString())
+    //println(System.currentTimeMillis().toString())
     val numero1: Deferred<Int> = async { calculateHard() }
-    println(System.currentTimeMillis().toString())
+    //println(System.currentTimeMillis().toString())
     val numero2: Deferred<Int> = async { calculateHard() }
-    println(System.currentTimeMillis().toString())
+    //println(System.currentTimeMillis().toString())
     val resultado: Int = numero1.await() + numero2.await()
     println(resultado.toString())
 }
