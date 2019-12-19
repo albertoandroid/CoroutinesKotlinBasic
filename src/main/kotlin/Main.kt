@@ -25,6 +25,20 @@ suspend fun delayCoroutine(message: String){
     println(message + Thread.currentThread().name)
 }
 
+fun exampleSuspend(){
+    println("Tarea1 " + Thread.currentThread().name)
+    runBlocking {
+        delayCoroutine("Tarea2 :")
+    }
+    println("Tarea3 " + Thread.currentThread().name)
+}
+
+fun exampleSuspend2() = runBlocking {
+    println("Tarea1 " + Thread.currentThread().name)
+    delayCoroutine("Tarea2 :")
+    println("Tarea3 " + Thread.currentThread().name)
+}
+
 fun dispatcher(){
     runBlocking {
         println("Hilo en el que se ejecuta 1: ${Thread.currentThread().name}")
