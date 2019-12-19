@@ -12,6 +12,7 @@ fun main(args: Array<String>) {
     //asyncAwaitDeferred()
     println(measureTimeMillis { asyncAwait() }.toString())
     println(measureTimeMillis { asyncAwaitDeferred() }.toString())
+    println(measureTimeMillis { withContextIO() }).toString()
 }
 
 fun longTaskWithMessage(message: String){
@@ -107,6 +108,15 @@ fun asyncAwaitDeferred() = runBlocking {
     val resultado: Int = numero1.await() + numero2.await()
     println(resultado.toString())
 }
+
+fun withContextIO() = runBlocking {
+    val numero1 = withContext(Dispatchers.IO){calculateHard()}
+    val numero2 = withContext(Dispatchers.IO){calculateHard()}
+    val resultado: Int = numero1 + numero2
+    println(resultado.toString())
+}
+
+
 
 
 
