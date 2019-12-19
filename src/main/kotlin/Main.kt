@@ -5,8 +5,9 @@ fun main(args: Array<String>) {
     //exampleSuspend()
     //dispatcher()
     //launch()
-    exampleJob()
-    Thread.sleep(5000)
+    //exampleJob()
+    //Thread.sleep(5000)
+    asyncAwait()
 }
 
 fun longTaskWithMessage(message: String){
@@ -76,6 +77,21 @@ fun exampleJob(){
     }
     println("Tarea3 " + Thread.currentThread().name)
     job.cancel()
+}
+
+suspend fun calculateHard(): Int{
+    delay(2000)
+    return 15
+}
+
+fun asyncAwait() = runBlocking {
+    println(System.currentTimeMillis().toString())
+    val numero1: Int = async { calculateHard() }.await()
+    println(System.currentTimeMillis().toString())
+    val numero2: Int = async { calculateHard() }.await()
+    println(System.currentTimeMillis().toString())
+    val resultado = numero1 + numero2
+    println(resultado.toString())
 }
 
 
