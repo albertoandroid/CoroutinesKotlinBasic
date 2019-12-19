@@ -2,10 +2,11 @@ import kotlinx.coroutines.*
 
 fun main(args: Array<String>) {
     //blokingExample()
-    exampleSuspend()
+    //exampleSuspend()
     //dispatcher()
-    launch()
-    Thread.sleep(10000)
+    //launch()
+    exampleJob()
+    Thread.sleep(5000)
 }
 
 fun longTaskWithMessage(message: String){
@@ -66,6 +67,15 @@ fun launch(){
         delayCoroutine("Tarea2 :")
     }
     println("Tarea3 " + Thread.currentThread().name)
+}
+
+fun exampleJob(){
+    println("Tarea1 " + Thread.currentThread().name)
+    val job = GlobalScope.launch {
+        delayCoroutine("Tarea2 :")
+    }
+    println("Tarea3 " + Thread.currentThread().name)
+    job.cancel()
 }
 
 
