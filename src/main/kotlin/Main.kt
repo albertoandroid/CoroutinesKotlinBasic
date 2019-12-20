@@ -1,5 +1,4 @@
 import kotlinx.coroutines.*
-import kotlin.system.measureTimeMillis
 
 fun main(args: Array<String>) {
     //blokingExample()
@@ -10,9 +9,10 @@ fun main(args: Array<String>) {
     //Thread.sleep(5000)
     //asyncAwait()
     //asyncAwaitDeferred()
-    println(measureTimeMillis { asyncAwait() }.toString())
-    println(measureTimeMillis { asyncAwaitDeferred() }.toString())
-    println(measureTimeMillis { withContextIO() }).toString()
+    //println(measureTimeMillis { asyncAwait() }.toString())
+    //println(measureTimeMillis { asyncAwaitDeferred() }.toString())
+    //println(measureTimeMillis { withContextIO() }).toString()
+    cancelCoroutine()
 }
 
 fun longTaskWithMessage(message: String){
@@ -67,7 +67,7 @@ fun dispatcher(){
     //}
 }
 
-fun launch(){
+fun launch(function: () -> Unit) {
     println("Tarea1 " + Thread.currentThread().name)
     GlobalScope.launch {
         delayCoroutine("Tarea2 :")
@@ -115,6 +115,22 @@ fun withContextIO() = runBlocking {
     val resultado: Int = numero1 + numero2
     println(resultado.toString())
 }
+
+fun cancelCoroutine(){
+    runBlocking {
+        val job = launch {
+            repeat(1000){
+                i->
+                println("job: $i")
+                kotlinx.coroutines.delay(500L)
+            }
+        }
+        delay(1400)
+        job.cancel()
+        println("main: cansado de esperar")
+    }
+}
+
 
 
 
